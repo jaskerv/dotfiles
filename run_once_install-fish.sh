@@ -8,3 +8,6 @@ else
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 end
 
+echo "Installing Fisher Packages"
+fisher install kidonng/zoxide.fish
+
