@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "Installing Packages"
+{{ if eq .chezmoi.os "linux" }}
+# Check if build-essential is already installed
+if dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -q "ok installed"; then
+    echo "build-essential is already installed. Skipping..."
+else
+    echo "Installing build-essential..."
+    sudo apt update
+    sudo apt install -y build-essential
+fi
+{{ end }}
+
+echo "Checking for brew install"
+if ! command -v brew &> /dev/null; then
+  echo "Brew not install, installing..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "Installing gcc as dependency of brew"
+  brew install gcc
+fi
+
+brew update
+
+brew install ripgrep \
+  neovim \
+  fish \
+  bat \
+  zoxide
