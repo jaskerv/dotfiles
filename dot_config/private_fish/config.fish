@@ -3,4 +3,4 @@ if status is-interactive
 end
 
 # Zoxide
-zoxide init fish | source
+#zoxide init fish | source
