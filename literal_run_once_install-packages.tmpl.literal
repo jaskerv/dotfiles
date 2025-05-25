@@ -1,0 +1,17 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "linux" }}
+# Linux packages
+echo "Installing Linux Packages"
+sudo apt update
+sudo apt install -y \
+  git
+{{ else if eq .chezmoi.os "darwin" }}
+# macOS packages
+echo "Installing MacOS Packages"
+if ! command -v brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+brew update
+brew install gcc
+{{ end }}
