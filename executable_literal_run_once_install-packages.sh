@@ -8,3 +8,4 @@ if ! command -v brew &> /dev/null; then
   brew install gcc
 fi
 
+brew install ripgrep
