@@ -11,3 +11,4 @@ end
 echo "Installing Fisher Packages"
 fisher install kidonng/zoxide.fish
 
+
