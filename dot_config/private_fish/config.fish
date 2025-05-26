@@ -2,7 +2,7 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     if test -z "$SSH_AUTH_SOCK"
         # Start ssh-agent
-        eval (ssh-agent -c ^/dev/null 2^&1)
+        eval (ssh-agent -c)
     end
 
     if not ssh-add -l | grep -q "^[0-9a-fA-F]"
