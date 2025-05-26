@@ -1,6 +1,9 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    echo "hiii"
+    if test -z "$SSH_AUTH_SOCK"
+        # Start ssh-agent
+        eval (ssh-agent -c)
+    end
 end
 
 # disable greeting
