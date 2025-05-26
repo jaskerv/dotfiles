@@ -3,7 +3,7 @@ if status is-interactive
 end
 
 # Starship
-#starship init fish | source
+starship init fish | source
 
 # Zoxide
 #zoxide init fish | source
