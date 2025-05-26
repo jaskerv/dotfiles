@@ -4,6 +4,11 @@ if status is-interactive
         # Start ssh-agent
         eval (ssh-agent -c ^/dev/null 2^&1)
     end
+
+    if not ssh-add -l | grep -q "^[0-9a-fA-F]"
+        # No keys loaded; add default key (adjust the path if your key is elsewhere)
+        ssh-add ~/.ssh/id_rsa ^/dev/null 2^&1
+    end
 end
 
 # disable greeting
