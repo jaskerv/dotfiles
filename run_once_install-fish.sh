@@ -10,5 +10,13 @@ end
 
 echo "Installing Fisher Packages"
 fisher install kidonng/zoxide.fish
-
+fisher install jorgebucaran/autopair.fish
+fisher install franciscolourenco/done
+fisher install meaningful-ooo/sponge
+fisher install PatrickF1/fzf.fish
+fisher install jhillyerd/plugin-git
+fisher install jorgebucaran/replay.fish
+fisher install nickeb96/puffer-fish
+fisher install acomagu/fish-async-prompt
+fisher install gazorby/fish-abbreviation-tips
 
