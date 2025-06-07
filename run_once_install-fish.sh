@@ -11,7 +11,6 @@ end
 echo "Installing Fisher Packages"
 fisher install kidonng/zoxide.fish
 fisher install jorgebucaran/autopair.fish
-fisher install franciscolourenco/done
 fisher install meaningful-ooo/sponge
 fisher install PatrickF1/fzf.fish
 fisher install jhillyerd/plugin-git
