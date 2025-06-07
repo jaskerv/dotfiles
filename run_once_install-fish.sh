@@ -9,6 +9,7 @@ else
 end
 
 echo "Installing Fisher Packages"
+
 fisher install kidonng/zoxide.fish
 fisher install jorgebucaran/autopair.fish
 fisher install meaningful-ooo/sponge
