@@ -1,0 +1,44 @@
+# ~/.config/mise/config.toml
+#
+# Global toolset and settings managed by mise. This file defines the default
+# user-level tools and is intended to be managed by chezmoi.
+
+[settings]
+# Use up to 8 parallel jobs when installing tools for faster installation.
+jobs = 8
+# Automatically answer "yes" to any installation prompts.
+yes = true
+# Don't show the "mise: Goin' fast!" startup message.
+quiet = false
+
+[tools]
+# --- Core Applications & Dotfile Management ---
+neovim = "stable"
+lazygit = "latest"
+chezmoi = "latest" # The dotfile manager itself.
+
+# --- Foundational Languages ---
+# A recent version of Python, the latest Long-Term Support version of Node.js,
+# and the latest buildable version of Go.
+python = "3.12"
+node = "lts"
+go = "latest"
+
+# --- Essential CLI Utilities ---
+# These tools enhance the command-line experience and are often
+# dependencies for Neovim plugins like Telescope.
+ripgrep = "latest"  # A fast grep replacement.
+fd = "latest"       # A fast find replacement.
+fzf = "latest"      # A command-line fuzzy finder.
+eza = "latest"      # A modern replacement for `ls`.
+bat = "latest"      # A `cat` clone with syntax highlighting.
+zoxide = "latest"   # A smarter `cd` command.
+
+# --- Development & Shell Tools ---
+gh = "latest"         # The GitHub CLI.
+starship = "latest"   # For a custom shell prompt.
+
+# --- Linters & Formatters ---
+# A fast Python linter/formatter and a Lua formatter for Neovim config.
+ruff = "latest"
+stylua = "latest"
