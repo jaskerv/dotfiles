@@ -76,4 +76,14 @@ if ! command -v mise >/dev/null 2>&1; then
   curl https://mise.run | sh
 fi
 
-echo "✅ Bootstrap complete. Foundational packages and mise are installed."
+# The shell needs to know where to find the `mise` binary we just installed.
+export PATH="$HOME/.local/bin:$PATH"
+
+# Now that `mise` is on the script's PATH, we can use it to install
+# all the tools defined in your ~/.config/mise/config.toml.
+echo "››› Installing development tools with mise..."
+su - $SUDO_USER -c "mise install"
+
+
+echo "✅ Bootstrap complete. Foundational packages, mise and mise tools are installed. Restart your terminal."
+
