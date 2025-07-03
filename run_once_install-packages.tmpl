@@ -1,34 +1,79 @@
-#!/bin/bash
+#!/bin/sh
+#
+# This script is run only once by chezmoi to install the foundational
+# system packages and the mise tool manager. It prepares the bare
+# operating system for user-level development tooling.
 
-echo "Installing Packages"
-{{ if eq .chezmoi.os "linux" }}
-# Check if build-essential is already installed
-if dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -q "ok installed"; then
-    echo "build-essential is already installed. Skipping..."
-else
-    echo "Installing build-essential..."
-    sudo apt update
-    sudo apt install -y build-essential
-fi
-{{ end }}
+set -e # Exit immediately if a command exits with a non-zero status.
 
-echo "Checking for brew install"
-if ! command -v brew &> /dev/null; then
-  echo "Brew not install, installing..."
+# --- macOS ---
+{{ if eq .chezmoi.os "darwin" -}}
+echo "››› 🍎 Running macOS setup..."
+# Check for Homebrew and install it if not found
+if ! command -v brew >/dev/null 2>&1; then
+  echo "  Installing Homebrew..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo "Installing gcc as dependency of brew"
-  brew install gcc
 fi
 
-brew update
+echo "  Updating Homebrew and installing packages from Brewfile..."
+# Assumes you have a `Brewfile` managed by chezmoi in your root
+brew bundle --global
 
-brew install ripgrep \
-  neovim \
-  bat \
-  zoxide \
-  fzf \
-  fd \
-  gh
+# --- Debian/Ubuntu ---
+{{ else if eq .chezmoi.os "linux" -}}
+  {{ if .chezmoi.osRelease.id | lower | eq "ubuntu" "debian" -}}
+echo "››› 🐧 Running Debian/Ubuntu setup..."
+sudo apt-get update
+sudo apt-get install -y \
+  build-essential \
+  pkg-config \
+  libssl-dev \
+  curl \
+  wget \
+  git \
+  unzip \
+  jq \
+  zsh \
+  fish \
+  tmux
 
-# Starship install
-curl -sS https://starship.rs/install.sh | sh
+  # --- Fedora ---
+  {{ else if .chezmoi.osRelease.id | lower | eq "fedora" -}}
+echo "››› 🐧 Running Fedora setup..."
+sudo dnf install -y \
+  @development-tools \
+  libssl-devel \
+  curl \
+  wget \
+  git \
+  unzip \
+  jq \
+  zsh \
+  fish \
+  tmux
+
+  # --- Arch Linux ---
+  {{ else if .chezmoi.osRelease.id | lower | eq "arch" -}}
+echo "››› 🐧 Running Arch Linux setup..."
+sudo pacman -Syu --noconfirm
+sudo pacman -S --noconfirm \
+  base-devel \
+  openssl \
+  curl \
+  wget \
+  git \
+  unzip \
+  jq \
+  zsh \
+  fish \
+  tmux
+  {{ end -}}
+{{ end -}}
+
+# --- Install Mise ---
+if ! command -v mise >/dev/null 2>&1; then
+  echo "››› Installing mise..."
+  curl https://mise.run | sh
+fi
+
+echo "✅ Bootstrap complete. Foundational packages and mise are installed."
