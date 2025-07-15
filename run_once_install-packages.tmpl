@@ -85,4 +85,25 @@ if ! command -v mise >/dev/null 2>&1; then
   curl https://mise.run | sh
 fi
 
+# --- Set Default Shell (requires sudo) ---
+echo "››› Checking default shell..."
+
+# This uses a chezmoi template to reliably get your username.
+TARGET_USER="{{ .chezmoi.username }}"
+
+# Find the full path to the fish executable.
+FISH_PATH=$(which fish)
+
+# Get the user's currently configured default shell.
+CURRENT_SHELL=$(getent passwd "$TARGET_USER" | cut -d: -f7)
+
+# Only change the shell if it's not already set to fish.
+if [ "$CURRENT_SHELL" != "$FISH_PATH" ]; then
+    echo "  Setting default shell to fish for user $TARGET_USER..."
+    # This command needs root privileges, which the script has.
+    sudo usermod -s "$FISH_PATH" "$TARGET_USER"
+else
+    echo "  Default shell is already fish."
+fi
+
 echo "✅ Bootstrap complete. Restart your terminal."

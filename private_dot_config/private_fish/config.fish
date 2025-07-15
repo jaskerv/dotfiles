@@ -15,6 +15,9 @@ set fish_greeting
 set -gx VISUAL "nvim"
 set -gx EDITOR "$VISUAL"
 
+# Mise
+~/.local/bin/mise activate fish | source
+
 # Starship
 starship init fish | source
 
