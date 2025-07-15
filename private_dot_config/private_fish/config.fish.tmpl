@@ -5,7 +5,7 @@ if not functions -q fisher
 end
 
 
-{{ if .chezmoi.osRelease.id | lower | eq "ubuntu" "debian"-}}
+{{ if .chezmoi.osRelease.id | lower | eq "ubuntu" "debian" -}}
 # Manage ssh-agent with keychain
 keychain --eval --quiet id_ed25519 | source
 {{ end -}}
