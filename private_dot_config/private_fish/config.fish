@@ -4,6 +4,9 @@ if not functions -q fisher
   curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 end
 
+# Manage ssh-agent with keychain
+keychain --eval --quiet id_ed25519 | source
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
 end
