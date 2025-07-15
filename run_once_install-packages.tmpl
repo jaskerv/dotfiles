@@ -6,6 +6,10 @@
 
 set -e # Exit immediately if a command exits with a non-zero status.
 
+TARGET_USER="{{ .chezmoi.username }}"
+
+echo "››› Running setup for user: $TARGET_USER"
+
 # --- macOS ---
 {{ if eq .chezmoi.os "darwin" -}}
 echo "››› 🍎 Running macOS setup..."
@@ -72,27 +76,13 @@ sudo pacman -S --noconfirm \
   {{ end -}}
 {{ end -}}
 
+# --- 5. Make mise available to THIS script ---
+export PATH="/home/$TARGET_USER/.local/bin:$PATH"
+
 # --- Install Mise ---
 if ! command -v mise >/dev/null 2>&1; then
   echo "››› Installing mise..."
   curl https://mise.run | sh
 fi
 
-echo "››› Checking default shell for user $TARGET_USER..."
-# Find the full path to the fish executable
-FISH_PATH=$(which fish)
-
-# Get the user's currently configured default shell from the /etc/passwd file
-# This is more reliable than checking the $SHELL variable.
-CURRENT_SHELL=$(getent passwd "$TARGET_USER" | cut -d: -f7)
-
-if [ "$CURRENT_SHELL" != "$FISH_PATH" ]; then
-    echo "  Setting default shell to fish..."
-    # Use chsh to change the shell for the target user.
-    # This command requires root privileges, which the script already has.
-    chsh -s "$FISH_PATH" "$TARGET_USER"
-else
-    echo "  Default shell is already fish."
-fi
-
-echo "✅ Bootstrap complete. Foundational packages and mise are installed. Restart your terminal"
+echo "✅ Bootstrap complete. Restart your terminal."
