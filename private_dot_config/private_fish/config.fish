@@ -11,12 +11,15 @@ end
 # disable greetingAdd commentMore actions
 set fish_greeting
 
+# Add ~/.local/bin to the PATH if it's not already there.
+fish_add_path "$HOME/.local/bin"
+
 # Editor
 set -gx VISUAL "nvim"
 set -gx EDITOR "$VISUAL"
 
 # Mise
-~/.local/bin/mise activate fish | source
+mise activate fish | source
 
 # Starship
 starship init fish | source
