@@ -16,9 +16,6 @@ end
 # disable greetingAdd commentMore actions
 set fish_greeting
 
-# Homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 # Starship
 starship init fish | source
 
