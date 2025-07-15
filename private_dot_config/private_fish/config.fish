@@ -1,4 +1,5 @@
 # Automatically install fisher if it's not already present.
+
 if not functions -q fisher
   echo "››› fisher not found. Installing..."
   curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
