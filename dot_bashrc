@@ -116,5 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Editor
+export VISUAL="nvim"
+export EDITOR="$VISUAL"
+
 # Mise activation
 eval "$(~/.local/bin/mise activate bash)"
