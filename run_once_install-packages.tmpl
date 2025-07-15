@@ -76,15 +76,6 @@ sudo pacman -S --noconfirm \
   {{ end -}}
 {{ end -}}
 
-# --- 5. Make mise available to THIS script ---
-export PATH="/home/$TARGET_USER/.local/bin:$PATH"
-
-# --- Install Mise ---
-if ! command -v mise >/dev/null 2>&1; then
-  echo "››› Installing mise..."
-  curl https://mise.run | sh
-fi
-
 # --- Set Default Shell (requires sudo) ---
 echo "››› Checking default shell..."
 
@@ -106,4 +97,4 @@ else
     echo "  Default shell is already fish."
 fi
 
-echo "✅ Bootstrap complete. Restart your terminal."
+echo "✅ Bootstrap complete. Restart your terminal. Run mise install"
