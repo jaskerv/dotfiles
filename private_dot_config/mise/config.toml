@@ -37,7 +37,6 @@ zoxide = "latest"   # A smarter `cd` command.
 # --- Development & Shell Tools ---
 gh = "latest"         # The GitHub CLI.
 starship = "latest"   # For a custom shell prompt.
-lazygit = "latest"
 
 # --- Linters & Formatters ---
 # A fast Python linter/formatter and a Lua formatter for Neovim config.
